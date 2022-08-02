@@ -1,5 +1,5 @@
 class Books {
-    String title;
+    String title; // Название книги.
     String author;
 }
 class BooksTestDrive {
