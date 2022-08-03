@@ -12,7 +12,7 @@ package FloodTheSite;
    1. Пользователь запускает игру.
       - Игра создает три "сайта".
       - Игра размещает "сайты" на игровом поле.
-   2. Игра начинается. Повторять цикл до потпления всех "сайтов".
+   2. Игра начинается. Повторять цикл до потоления всех "сайтов".
       - Предложить полльзователю сделать ход (A0, B3 и т.д.)
       - Проверить всее сайты на попадание, промах и потопление.
       - Если попадание, то отмечаем ячейку как подбитую.
@@ -21,8 +21,35 @@ package FloodTheSite;
       - Показать пользователю рейтинг, основываясь на времени и количестве попыток.
 */
 public class SimpleFloodTheSiteGame {
+    // Счетчик выстрелов.
+    int numOfTarget = 0;
     public static void main(String[] args) {
-        TheSite test = new TheSite();
-        test.checkTarget("");
+        SimpleFloodTheSiteGame game = new SimpleFloodTheSiteGame();
+    }
+    public SimpleFloodTheSiteGame() {
+        // Создаем вспомогательный объект для ввода данных с клавиатуры.
+        TheSiteHelper helper = new TheSiteHelper();
+        // Создаем экземпляр TheSite.
+        TheSite site = new TheSite();
+        // Определяем случайное число 1-5.
+        // Передаем полученное число для координаты сайта.
+        site.setLocationCells((int)(Math.random()*5+1.0F));
+        // Переменная - результат последнего выстрела.
+        String result = "";
+        // Цикл - пока сайт не потоплен.
+        while (result != TheSite.SUNK) {
+            // выводим подсказку, получаем ввод координаты для выстрела.
+            String target = helper.getUserInput("Введите ход [1-7]: ");
+            // проверяем координату, выполняем выстрел, вносим результат в переменную.
+            result = site.checkTarget(target);
+            // увеличиваем счетчик выстрелов.
+            numOfTarget++;
+        }// конец цикла
+        // выводим сообщение о Победе, количество выполненых выстрелов и затраченное время на игру.
+        if (numOfTarget<5)
+            System.out.println("Победа! Вам потребовалось "+numOfTarget+" хода!");
+        else
+            System.out.println("Победа! Вам потребовалось "+numOfTarget+" ходов!");
+        // Завершаем игру (или делаем переход на начало игры).
     }
 }
