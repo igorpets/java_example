@@ -25,9 +25,10 @@ public class TestTheSite {
         err_count += check_away("6");
         err_count += check_away("7");
         err_count += check_hit("4");
+        err_count += check_away("4"); // Проверяем второй выстрел в одно поле. Должно быть Мимо.
         err_count += check_hit("5");
         err_count += check_sunk("3");
-        err_count += check_away("4");
+        err_count += check_away("4"); // Корабль уже подбит, новые выстрелы должны быть Мимо.
         err_count += check_away("5");
         // Завершение теста, успешно/неуспешно.
         if (err_count>0)

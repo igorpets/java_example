@@ -1,14 +1,16 @@
 package FloodTheSite;
 
 public class TheSite {
-    // Размеры игрового  поля.
+    // Размеры игрового  поля 1x7.
     public static int AREA_SIZE = 7;
+    // Размер сайта на игровом поле 1x3.
+    public static int SITE_SIZE = 3;
     public static String AWAY="Мимо";
     public static String HIT="Попал";
     public static String SUNK="Потопил";
     private boolean test = false;
     // Координаты полей сайта на игровом поле.
-    private final int[] locationCells = new int[3];
+    private final int[] locationCells = new int[SITE_SIZE];
     // Количество попаданий.
     int numOfHits = 0;
 
@@ -36,7 +38,9 @@ public class TheSite {
                         System.out.println("Координата выстрела выходит за пределы игрового поля " + AREA_SIZE + "x" + AREA_SIZE + "!");
                 } else {
                     // цикл по всем полям, занятым сайтом.
-                    for (int current : locationCells) {
+                    int current;
+                    for (int i = 0; i < locationCells.length; i++) {
+                        current = locationCells[i];
                         //System.out.println("current=" + current +" target="+target);
                         // Сравниваем ход пользователя с адресом очередного поля сайта.
                         if (current == target) {
@@ -50,6 +54,8 @@ public class TheSite {
                                 // Иначе возвращаем "Попал"
                                 result = HIT;
                             }
+                            // Отмечаем что данное поле сайта уже "подбито".
+                            locationCells[i] = -1;
                             break;
                         }
                     }// конец цикла
